@@ -12,20 +12,29 @@
 // console.log(telaLogin("Erick"));
 // console.log(telaLogin("Carmen"));
 
-// 1ª Refatoração
+// 1ª Refatoração, higher order functions 
 
 const login = (usuario) => {
     return `${usuario} fez login`;
 };
 
-const telaLogin = (usuario) => {
+const telaLogin = (perfil) => {
     let autenticaUsuario = []
-    for(loop = 0; loop > 1000; loop++){
+    for(loop = 0; loop < perfil; loop++){
     autenticaUsuario.push(loop);
     }
-    return login(usuario)
+    return true;
 };
 
-console.log(telaLogin("Atevilson"));
-console.log(telaLogin("Erick"));
-console.log(telaLogin("Carmen"));
+// Adicionado um tempo de login maior para Atevilson
+const validador = (identificador, telaLogin) => {
+    if(identificador.perfil === `Administrador`) {
+        telaLogin(50000);
+    }else if (identificador.perfil === `Usuario`) {
+        telaLogin(1000);
+    }
+    return login(identificador.usuario);
+}
+console.log(validador({ perfil: `Administrador`, usuario: `Atevilson`}, telaLogin));
+console.log(validador({ perfil: `Usuario`, usuario: `Erick`}, telaLogin));
+console.log(validador({ perfil: `Usuario`, usuario: `Carmen`}, telaLogin));
